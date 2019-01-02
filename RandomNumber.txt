@@ -1,0 +1,34 @@
+                private static final String CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+                                public String getUniqueID()throws Exception
+                                {
+                                                String randomNum = "";
+                                                try
+                                                                {
+                                                                                long start = 100000L;
+                                                                                long end = 999999L;
+                                                                                char[] characterSet =MobileAppsConstants.getCHARSET().toCharArray();
+                                                                                String randAlphaNum= "";
+                                                                                Random random = new Random();
+                                                                                long range = end - (long)start + 1;
+                                                                                long fraction = (long)(range*random.nextDouble());
+                                                                                long randomNumber = fraction + (long)start;
+                                                                                Random randomChar = new SecureRandom();
+                                                                                char[] result = new char[5];
+                                                                                for (int i = 0; i < result.length; i++)
+                                                                                                {
+                                                                                                   // picks a random index out of character set > random character
+                                                                                                  int randomCharIndex = randomChar.nextInt(characterSet.length);
+                                                                                                  result[i] = characterSet[randomCharIndex];
+                                                                                                }
+                                                                                randAlphaNum= new String(result);
+                                                                                randomNum = MobileAppsConstants.getFAXUUIDCONST()+randAlphaNum+randomNumber;
+                                                                                
+                                                                }
+                                                catch(Exception exception)
+                                                                {
+                                                                                log.error("Exception in getUniqueID -"+exception.getMessage());
+                                                                                throw exception;
+                                                                }
+                                                return randomNum;
+                                }
